@@ -19,7 +19,8 @@ A schema to maintain all CT objects
 
 To track CT version (incremental between last processed and cutover) by table, a new table to CT schema. Initial version starts with the minimum valid version as maintained by the MSSQL database engine.
 
-`CREATE TABLE [CT].[Version]
+`
+CREATE TABLE [CT].[Version]
 (
     [TableVersionID] [BIGINT] IDENTITY(1, 1) NOT NULL PRIMARY KEY,
     [TableName] [NVARCHAR](128) NOT NULL,
@@ -28,7 +29,7 @@ To track CT version (incremental between last processed and cutover) by table, a
     [CreatedBy] [NVARCHAR](128) NOT NULL,
     [UpdatedOn] [DATETIME] NULL,
     [UpdatedBy] [NVARCHAR](128) NULL
-) GO`
+) GO
 
 ALTER TABLE [CT].[Version]
 ADD CONSTRAINT [Version_DK_CreatedOn] DEFAULT (GETDATE()) FOR [CreatedOn];
@@ -37,10 +38,11 @@ GO
 ALTER TABLE [CT].[Version]
 ADD CONSTRAINT [Version_DK_CreatedBy] DEFAULT (SUSER_SNAME()) FOR [CreatedBy];
 GO
+`
 
 #### CT.Incremental
 
-CREATE TABLE [CT].[Incremental]
+`CREATE TABLE [CT].[Incremental]
 (
 [IncrementalID] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
 [Schema] [nvarchar](128) NOT NULL,
@@ -55,6 +57,7 @@ ALTER TABLE [CT].[Incremental] ADD  CONSTRAINT [Incremental_DF_CreatedOn]  DEFAU
 GO
 
 ALTER TABLE [CT].[Incremental] ADD  CONSTRAINT [Incremental_DF_CreatedBy]  DEFAULT (suser_sname()) FOR [CreatedBy]
+`
 
 To centralize all Incremental changes for the Change Tracked tables, a table in CT schema. This table will store the net incremental changes until truncated and reloaded as part of the nightly ETL job stream.
 
@@ -66,6 +69,7 @@ Integration Service Package to orchestrate the refresh of the centralized Increm
 ## Seed CT.Version (if not in the list) 
 With minimum valid version (maintained by the MSSQL database engine) for tables that have been flagged for Change Tracking. 
 
+'
 WITH CTE_ChangeTrackedTables AS (SELECT CONCAT(QUOTENAME(s.name), '.', QUOTENAME(t.name)) AS [SchemaTable],
                                         tr.[min_valid_version] AS [MinValidVersion]
                                  FROM sys.schemas s
@@ -88,19 +92,22 @@ WHEN NOT MATCHED BY TARGET THEN
     )
     VALUES
     ([Schematable], [MinValidVersion]);
-
+`
 
 ## Establish Cutover Change Tracking Version
-
+`
 SELECT ? = CHANGE_TRACKING_CURRENT_VERSION()
-
+`
 ## Initialize Incremental
+`
 TRUNCATE TABLE [CT].[Incremental];
+`
 
 ## Enumerate Change Tracked Tables (to refresh)
 
 For each table, dynamically generate t-SQL to refresh the centralized Incremental table between last and established cutover Tracking version. Single column primary key and composite columns primary keys are supported and all references to the metadata are on-the-fly resolve:
 
+`
 WITH CTE_list AS (SELECT QUOTENAME(s.name) AS [Schema],
                          QUOTENAME(t.name) AS [Table],
                          QUOTENAME(tc.[name]) AS [Column],
@@ -155,13 +162,14 @@ SELECT [Schema],
 FROM CTE_sub
 ORDER BY [Schema],
          [Table];
+`
 
 ## FOR EACH Enumerated
 
 ### Execute dynamically generated DML for Table in the current iteration 
 
 For example:
-
+`
 INSERT INTO [EPIC_US_CT].[CT].[Incremental]
 (
     [Schema],
@@ -175,14 +183,15 @@ SELECT '[dbo]' AS [Schema],
        CHECKSUM([ProductID]) AS [KeyValue]
 FROM CHANGETABLE(CHANGES [dbo].[Product], 594) AS ct
 WHERE [ct].[SYS_CHANGE_VERSION] <= 815;
+`
 
 ### Also establish its watermark version for the next run 
 
 For example:
-
+`
 UPDATE [CT].[Version]
 SET [VersionID] = CAST(815 AS BIGINT),
     [UpdatedOn] = GETDATE(),
     [UpdatedBy] = SUSER_SNAME()
 WHERE [TableName] = '[dbo].[Product]';
-
+`
