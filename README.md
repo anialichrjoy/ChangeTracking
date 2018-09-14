@@ -5,14 +5,20 @@ Generic SSIS solution to get the net data changes on any SQL Server Change Track
 ## DDL
 
 ### Enable Change Tracking at Database level:
-Example:  ALTER DATABASE [DatabaseName] SET CHANGE_TRACKING = ON (CHANGE_RETENTION = 3 DAYS, AUTO_CLEANUP = ON);
-  
+Example:  
+`
+ALTER DATABASE [DatabaseName] SET CHANGE_TRACKING = ON (CHANGE_RETENTION = 3 DAYS, AUTO_CLEANUP = ON);
+`
+
 ### Enable Change Tracking at Table level:
-Example: ALTER TABLE <EPIC TABLE NAME> ENABLE CHANGE_TRACKING WITH (TRACK_COLUMNS_UPDATED = OFF);
-  
+Example: 
+`
+ALTER TABLE <EPIC TABLE NAME> ENABLE CHANGE_TRACKING WITH (TRACK_COLUMNS_UPDATED = OFF);
+`
+
 ### Create Custom Objects: 
 
-#### CREATE SCHEMA [CT];
+#### `CREATE SCHEMA [CT];`
 A schema to maintain all CT objects
 
 #### CT.Version
@@ -42,7 +48,8 @@ GO
 
 #### CT.Incremental
 
-`CREATE TABLE [CT].[Incremental]
+`
+CREATE TABLE [CT].[Incremental]
 (
 [IncrementalID] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
 [Schema] [nvarchar](128) NOT NULL,
@@ -69,7 +76,7 @@ Integration Service Package to orchestrate the refresh of the centralized Increm
 ## Seed CT.Version (if not in the list) 
 With minimum valid version (maintained by the MSSQL database engine) for tables that have been flagged for Change Tracking. 
 
-'
+`
 WITH CTE_ChangeTrackedTables AS (SELECT CONCAT(QUOTENAME(s.name), '.', QUOTENAME(t.name)) AS [SchemaTable],
                                         tr.[min_valid_version] AS [MinValidVersion]
                                  FROM sys.schemas s
