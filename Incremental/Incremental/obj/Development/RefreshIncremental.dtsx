@@ -1,0 +1,567 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/1/2018"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="EDCV-CTL-DNAD01"
+  DTS:CreatorName="SLA.joy.wilson"
+  DTS:Description="EPIC Incremental Refresh"
+  DTS:DTSID="{15FF20AB-E6D2-45F9-8DA0-AC97C5F0AEB1}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:ISOLevel="4096"
+  DTS:LastModifiedProductVersion="14.0.0800.90"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="RefreshIncremental"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:TransactionOption="0"
+  DTS:VersionBuild="163"
+  DTS:VersionComments="Core Release"
+  DTS:VersionGUID="{90A29CEC-138C-4283-B257-F7D8AA66EFEA}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[EPIC_REPL_SUBSCRIBER]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{07AD2E68-8D76-4506-A557-8C255FFF62E4}"
+      DTS:ObjectName="EPIC_REPL_SUBSCRIBER">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BDEHAT_US-TST-01.db.hub.local\BDE_HAT_TEST;Initial Catalog=VE70T4_HUBIN06_TRAINING_Repl;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{90CC9146-548D-4FC2-AC1C-2E1DBC1A9786}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ENUM_Column">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B176D715-96EB-4E01-A8F2-6702AC268B6D}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ENUM_CTQuery">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{495147B9-6738-4BAD-B1A8-8BC00A58B8FB}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ENUM_enum_set">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3E1C4233-5D19-4E1B-9F28-03F3E597A450}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ENUM_Schema">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4E756C68-B54C-4B67-8520-79879491CD8C}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ENUM_SchemaTable">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{CFA6B186-FC0A-4F98-AC1A-A139E61259F4}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ENUM_Table">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3CDF7909-9CE8-452C-91F9-EAB7B3459421}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ENUM_UpdateQuery">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{93356869-E355-4FC9-882F-5C22B02E4803}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="VR_CTEndVersion">
+      <DTS:VariableValue
+        DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{65790B6A-B97D-43E9-B330-770DA12A6FA2}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="VR_VersionID">
+      <DTS:VariableValue
+        DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\SC_RefreshIncremental"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="SC_RefreshIncremental"
+      DTS:DTSID="{55E8E540-EE45-4255-A75B-80D67A4401F7}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SC_RefreshIncremental">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\SC_RefreshIncremental\EST_EnumerateTrackedTables"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Enumerate list of Change Tracked tables to process"
+          DTS:DTSID="{0EC89CCB-7F5B-46E9-B673-D553D1924B04}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:ISOLevel="4096"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="EST_EnumerateTrackedTables"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{07AD2E68-8D76-4506-A557-8C255FFF62E4}"
+              SQLTask:SqlStatementSource="WITH CTE_list AS (SELECT QUOTENAME(s.name) AS [Schema],&#xA;                         QUOTENAME(t.name) AS [Table],&#xA;                         QUOTENAME(tc.[name]) AS [Column],&#xA;                         ic.key_ordinal AS [KeyOrdinal],&#xA;                         CONCAT(QUOTENAME(s.name), '.', QUOTENAME(t.name)) AS [Schematable],&#xA;                         VersionID =&#xA;                         (&#xA;                             SELECT ISNULL([VersionID], 0) AS [VersionID]&#xA;                             FROM [CT].[Version]&#xA;                             WHERE [TableName] = CONCAT(QUOTENAME(s.name), '.', QUOTENAME(t.name))&#xA;                         )&#xA;                  FROM sys.schemas s&#xA;                      INNER JOIN sys.tables t ON s.schema_id = t.schema_id&#xA;                      INNER JOIN sys.indexes i ON t.object_id = i.object_id&#xA;                      INNER JOIN sys.index_columns ic ON i.object_id = ic.object_id AND i.index_id = ic.index_id&#xA;                      INNER JOIN sys.columns tc ON ic.object_id = tc.object_id AND ic.column_id = tc.column_id&#xA;                      INNER JOIN sys.change_tracking_tables tr ON t.object_id = tr.object_id&#xA;                  WHERE i.[is_primary_key] = 1),&#xA;     CTE_sub AS (SELECT [Schema],&#xA;                        [Table],&#xA;                        [Schematable],&#xA;                        [VersionID],&#xA;                        STUFF(&#xA;                        (&#xA;                            SELECT ',' + [Column]&#xA;                            FROM CTE_list sl&#xA;                            WHERE ml.[Table] = sl.[Table]&#xA;                            ORDER BY sl.[KeyOrdinal]&#xA;                            FOR XML PATH('')&#xA;                        ), 1, 1, ''&#xA;                             ) AS [Column]&#xA;                 FROM CTE_list ml&#xA;                 GROUP BY [Schema],&#xA;                          [Table],&#xA;                          [Schematable],&#xA;                          [VersionID])&#xA;SELECT [Schema],&#xA;       [Table],&#xA;       [Schematable],&#xA;       [Column],&#xA;       CONCAT(&#xA;                 'INSERT INTO [CT].[Incremental] ([Schema], [Table], [KeyName], [KeyChecksumValue]) SELECT ', CHAR(39),&#xA;                 [Schema], CHAR(39), ' AS [Schema] , ', CHAR(39), [Table], CHAR(39), ' AS [Table] , ', CHAR(39),&#xA;                 [Column], CHAR(39), ' AS [Column], ', 'CHECKSUM(', [Column], ')',&#xA;                 ' AS [KeyValue] FROM CHANGETABLE(CHANGES ', [Schematable], ', ', [VersionID],&#xA;                 ') AS ct WHERE [CT].[SYS_CHANGE_VERSION] &lt;= ?;'&#xA;             ) AS [CTQuery],&#xA;       [UpdateQuery] = CONCAT(&#xA;                                 'UPDATE [CT].[Version] SET [VersionID] = CAST(? AS BIGINT), [UpdatedOn] = GETDATE(), [UpdatedBy] = SUSER_SNAME() WHERE [TableName] = ', CHAR(39),&#xA;                                 [SchemaTable], CHAR(39)&#xA;                             )&#xA;FROM CTE_sub&#xA;ORDER BY [Schema],&#xA;         [Table];"
+              SQLTask:ResultType="ResultSetType_Rowset" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::ENUM_enum_set" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SC_RefreshIncremental\EST_EstablishEndTrackingVersion"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Establish current change tracking version as End Tracking version"
+          DTS:DTSID="{AE265609-7EAD-4EEA-9119-2B36F3F8A373}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="EST_EstablishEndTrackingVersion"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{07AD2E68-8D76-4506-A557-8C255FFF62E4}"
+              SQLTask:SqlStatementSource="SELECT ? = CHANGE_TRACKING_CURRENT_VERSION()" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::VR_CTEndVersion"
+                SQLTask:ParameterDirection="Output"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SC_RefreshIncremental\EST_InitializeIncremental"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Prepare Change Tarcking Incremental for refresh"
+          DTS:DTSID="{BCD80618-E0E6-48FD-B298-EDD93436B545}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="EST_InitializeIncremental"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{07AD2E68-8D76-4506-A557-8C255FFF62E4}"
+              SQLTask:SqlStatementSource="TRUNCATE TABLE [CT].[Incremental];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::VR_VersionID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SC_RefreshIncremental\EST_SeedITrackedTablesInitialVersion"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Seed initial Version with minimum valid version for all tables that are currently flagged for Change Tracking"
+          DTS:DTSID="{F06918E4-516E-468D-BB67-E0E151092E4F}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="EST_SeedITrackedTablesInitialVersion"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{07AD2E68-8D76-4506-A557-8C255FFF62E4}"
+              SQLTask:SqlStatementSource="WITH CTE_ChangeTrackedTables AS (SELECT CONCAT(QUOTENAME(s.name), '.', QUOTENAME(t.name)) AS [SchemaTable], tr.[min_valid_version] AS [MinValidVersion]&#xA;                                 FROM sys.schemas s&#xA;                                     INNER JOIN sys.tables t ON s.schema_id = t.schema_id&#xA;                                     INNER JOIN sys.change_tracking_tables tr ON t.object_id = tr.object_id)&#xA;MERGE [CT].[Version] AS t&#xA;USING&#xA;(&#xA;    SELECT [SchemaTable],&#xA;           [MinValidVersion]&#xA;    FROM CTE_ChangeTrackedTables&#xA;) AS s&#xA;([Schematable], [MinValidVersion])&#xA;ON t.[TableName] = s.[Schematable]&#xA;WHEN NOT MATCHED BY TARGET THEN&#xA;    INSERT&#xA;    (&#xA;        [TableName],&#xA;        [VersionID]&#xA;    )&#xA;    VALUES&#xA;    ([Schematable], [MinValidVersion]);&#xA;&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SC_RefreshIncremental\FEL_ForEnumerated"
+          DTS:CreationName="STOCK:FOREACHLOOP"
+          DTS:DelayValidation="True"
+          DTS:Description="For each SCHEMA.Table enumerated, refresh INC.Table"
+          DTS:DTSID="{2CABF256-2B9B-4A8A-AB2F-6EED73608494}"
+          DTS:ExecutableType="STOCK:FOREACHLOOP"
+          DTS:ISOLevel="4096"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="FEL_ForEnumerated">
+          <DTS:ForEachEnumerator
+            DTS:CreationName="Microsoft.ForEachADOEnumerator"
+            DTS:DTSID="{04E1F875-F572-407B-87EB-35238B5B977F}"
+            DTS:ObjectName="{04E1F875-F572-407B-87EB-35238B5B977F}">
+            <DTS:ObjectData>
+              <FEEADO
+                EnumType="EnumerateAllRows"
+                VarName="User::ENUM_enum_set" />
+            </DTS:ObjectData>
+          </DTS:ForEachEnumerator>
+          <DTS:Variables />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\SC_RefreshIncremental\FEL_ForEnumerated\EST_ApplyEndTrackingVersion"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:Description="Execute SQL Task"
+              DTS:DTSID="{F7378662-809A-49D1-8FBC-B6D50DBA0694}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="EST_ApplyEndTrackingVersion"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{07AD2E68-8D76-4506-A557-8C255FFF62E4}"
+                  SQLTask:SqlStmtSourceType="Variable"
+                  SQLTask:SqlStatementSource="User::ENUM_UpdateQuery" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="0"
+                    SQLTask:DtsVariableName="User::VR_CTEndVersion"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="3"
+                    SQLTask:ParameterSize="-1" />
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\SC_RefreshIncremental\FEL_ForEnumerated\EST_RefreshIncremental"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:Description="For this Schema.Table, refresh Incremental "
+              DTS:DTSID="{B16C03A0-CB99-4961-B891-C6FF933AFBA3}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="EST_RefreshIncremental"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{07AD2E68-8D76-4506-A557-8C255FFF62E4}"
+                  SQLTask:SqlStmtSourceType="Variable"
+                  SQLTask:SqlStatementSource="User::ENUM_CTQuery" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="0"
+                    SQLTask:DtsVariableName="User::VR_CTEndVersion"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="3"
+                    SQLTask:ParameterSize="-1" />
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:PrecedenceConstraints>
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\SC_RefreshIncremental\FEL_ForEnumerated.PrecedenceConstraints[Constraint]"
+              DTS:CreationName=""
+              DTS:DTSID="{4622B143-8A4B-4ACB-A1F7-0D8D30932846}"
+              DTS:From="Package\SC_RefreshIncremental\FEL_ForEnumerated\EST_RefreshIncremental"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint"
+              DTS:To="Package\SC_RefreshIncremental\FEL_ForEnumerated\EST_ApplyEndTrackingVersion" />
+          </DTS:PrecedenceConstraints>
+          <DTS:ForEachVariableMappings>
+            <DTS:ForEachVariableMapping
+              DTS:CreationName=""
+              DTS:DTSID="{1242A2B9-4F4A-4A0D-9131-E6165A995958}"
+              DTS:ObjectName="{1242A2B9-4F4A-4A0D-9131-E6165A995958}"
+              DTS:ValueIndex="0"
+              DTS:VariableName="User::ENUM_Schema" />
+            <DTS:ForEachVariableMapping
+              DTS:CreationName=""
+              DTS:DTSID="{9C675416-EF77-4A72-ADCB-B9C0CDA9ADC7}"
+              DTS:ObjectName="{9C675416-EF77-4A72-ADCB-B9C0CDA9ADC7}"
+              DTS:ValueIndex="1"
+              DTS:VariableName="User::ENUM_Table" />
+            <DTS:ForEachVariableMapping
+              DTS:CreationName=""
+              DTS:DTSID="{BAE43B98-F9C3-4636-A0A5-5DD4A1126D24}"
+              DTS:ObjectName="{BAE43B98-F9C3-4636-A0A5-5DD4A1126D24}"
+              DTS:ValueIndex="2"
+              DTS:VariableName="User::ENUM_SchemaTable" />
+            <DTS:ForEachVariableMapping
+              DTS:CreationName=""
+              DTS:DTSID="{9A0741A4-8E97-471B-B1C7-205C8B54B8BC}"
+              DTS:ObjectName="{9A0741A4-8E97-471B-B1C7-205C8B54B8BC}"
+              DTS:ValueIndex="3"
+              DTS:VariableName="User::ENUM_Column" />
+            <DTS:ForEachVariableMapping
+              DTS:CreationName=""
+              DTS:DTSID="{2CA17403-B561-446B-B88B-9FE08A82D788}"
+              DTS:ObjectName="{2CA17403-B561-446B-B88B-9FE08A82D788}"
+              DTS:ValueIndex="4"
+              DTS:VariableName="User::ENUM_CTQuery" />
+            <DTS:ForEachVariableMapping
+              DTS:CreationName=""
+              DTS:DTSID="{47EA3F13-9993-422E-9EF1-820A10A97525}"
+              DTS:ObjectName="{47EA3F13-9993-422E-9EF1-820A10A97525}"
+              DTS:ValueIndex="5"
+              DTS:VariableName="User::ENUM_UpdateQuery" />
+          </DTS:ForEachVariableMappings>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SC_RefreshIncremental.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{141917DA-4E30-4477-AA3A-556BAA36CD1A}"
+          DTS:From="Package\SC_RefreshIncremental\EST_SeedITrackedTablesInitialVersion"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\SC_RefreshIncremental\EST_EstablishEndTrackingVersion" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SC_RefreshIncremental.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{6C1561A7-544F-47C4-ACEF-C4F236D0F7A7}"
+          DTS:From="Package\SC_RefreshIncremental\EST_EstablishEndTrackingVersion"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\SC_RefreshIncremental\EST_InitializeIncremental" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SC_RefreshIncremental.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{B2EDC88F-AB58-434B-8EE6-AB46A51FEAD3}"
+          DTS:From="Package\SC_RefreshIncremental\EST_InitializeIncremental"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\SC_RefreshIncremental\EST_EnumerateTrackedTables" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SC_RefreshIncremental.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{230783F8-0478-46D0-A75E-BAE06B2DDC58}"
+          DTS:From="Package\SC_RefreshIncremental\EST_EnumerateTrackedTables"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\SC_RefreshIncremental\FEL_ForEnumerated" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="301,46"
+          Id="Package\SC_RefreshIncremental\EST_EnumerateTrackedTables"
+          TopLeft="35,261" />
+        <NodeLayout
+          Size="301,46"
+          Id="Package\SC_RefreshIncremental\EST_EstablishEndTrackingVersion"
+          TopLeft="32,111" />
+        <NodeLayout
+          Size="301,46"
+          Id="Package\SC_RefreshIncremental\EST_InitializeIncremental"
+          TopLeft="33,186" />
+        <NodeLayout
+          Size="301,46"
+          Id="Package\SC_RefreshIncremental\EST_SeedITrackedTablesInitialVersion"
+          TopLeft="31,38" />
+        <NodeLayout
+          Size="221,42"
+          Id="Package\SC_RefreshIncremental\FEL_ForEnumerated\EST_ApplyEndTrackingVersion"
+          TopLeft="42,114" />
+        <NodeLayout
+          Size="218,42"
+          Id="Package\SC_RefreshIncremental\FEL_ForEnumerated\EST_RefreshIncremental"
+          TopLeft="42,38" />
+        <EdgeLayout
+          Id="Package\SC_RefreshIncremental\FEL_ForEnumerated.PrecedenceConstraints[Constraint]"
+          TopLeft="151.75,80">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34"
+              Start="0,0"
+              End="0,26.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43.924528301886795"
+          IsExpanded="True"
+          PanelSize="301,211"
+          Size="301,255"
+          Id="Package\SC_RefreshIncremental\FEL_ForEnumerated"
+          TopLeft="391,44.292452830189" />
+        <EdgeLayout
+          Id="Package\SC_RefreshIncremental.PrecedenceConstraints[Constraint]"
+          TopLeft="182,84">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,27"
+              Start="0,0"
+              End="0,19.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SC_RefreshIncremental.PrecedenceConstraints[Constraint 1]"
+          TopLeft="183,157">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29"
+              Start="0,0"
+              End="0,21.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SC_RefreshIncremental.PrecedenceConstraints[Constraint 2]"
+          TopLeft="184.5,232">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29"
+              Start="0,0"
+              End="0,21.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SC_RefreshIncremental.PrecedenceConstraints[Constraint 3]"
+          TopLeft="336,284">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="55,-112.207547169811"
+              Start="0,0"
+              End="47.5,-112.207547169811">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="23.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="23.5,0"
+                    Point2="27.5,0"
+                    Point3="27.5,-4" />
+                  <mssgle:LineSegment
+                    End="27.5,-108.207547169811" />
+                  <mssgle:CubicBezierSegment
+                    Point1="27.5,-108.207547169811"
+                    Point2="27.5,-112.207547169811"
+                    Point3="31.5,-112.207547169811" />
+                  <mssgle:LineSegment
+                    End="47.5,-112.207547169811" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="722,362"
+          Size="722,405"
+          Id="Package\SC_RefreshIncremental"
+          TopLeft="100,92" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
