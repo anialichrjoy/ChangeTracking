@@ -19,7 +19,7 @@ A schema to maintain all CT objects
 
 To track CT version (incremental between last processed and cutover) by table, a new table to CT schema. Initial version starts with the minimum valid version as maintained by the MSSQL database engine.
 
-CREATE TABLE [CT].[Version]
+`CREATE TABLE [CT].[Version]
 (
     [TableVersionID] [BIGINT] IDENTITY(1, 1) NOT NULL PRIMARY KEY,
     [TableName] [NVARCHAR](128) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE [CT].[Version]
     [CreatedBy] [NVARCHAR](128) NOT NULL,
     [UpdatedOn] [DATETIME] NULL,
     [UpdatedBy] [NVARCHAR](128) NULL
-) GO
+) GO`
 
 ALTER TABLE [CT].[Version]
 ADD CONSTRAINT [Version_DK_CreatedOn] DEFAULT (GETDATE()) FOR [CreatedOn];
