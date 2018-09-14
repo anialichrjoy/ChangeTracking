@@ -1,6 +1,9 @@
-# ChangeTracking
+# Abstract 
+Generic solution to detect the  incremental data update on SQL Server Change Tarcker table(s) using t-SQL and SSIS. The solution is ideal for ETL use-cases that require an automated process to capture the net changes on Change Tracked table(s) to a centralized table for easy selection and or further filtering.
 
-Generic SSIS solution to get the net data changes on any SQL Server Change Tracked table into a centralized table to support incrementalthe data ETL use-cases.
+## Technologies 
+Microsoft SQL Server native **Change Tracking, t-SQL** and **SSIS**
+
 
 ## DDL
 
@@ -18,8 +21,8 @@ ALTER TABLE <EPIC TABLE NAME> ENABLE CHANGE_TRACKING WITH (TRACK_COLUMNS_UPDATED
 
 ### Create Custom Objects: 
 
-#### CREATE SCHEMA [CT]
-A schema to maintain all CT objects
+#### CREATE SCHEMA
+A schema to maintain all custom CT objects
 
 ```sql 
 CREATE SCHEMA [CT] AUTHORIZATION [dbo]
