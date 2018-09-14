@@ -55,6 +55,8 @@ GO
 
 #### CT.Incremental
 
+To centralize all Incremental changes for the Change Tracked tables, a table in CT schema. This table will store the net incremental changes until truncated and reloaded as part of the nightly ETL job stream.
+
 ```sql 
 CREATE TABLE [CT].[Incremental]
 (
@@ -73,9 +75,6 @@ GO
 ALTER TABLE [CT].[Incremental] ADD  CONSTRAINT [Incremental_DF_CreatedBy]  DEFAULT (suser_sname()) FOR [CreatedBy]
 GO
 ```
-
-To centralize all Incremental changes for the Change Tracked tables, a table in CT schema. This table will store the net incremental changes until truncated and reloaded as part of the nightly ETL job stream.
-
 
 # SSIS Workflow
 
