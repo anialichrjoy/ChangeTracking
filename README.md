@@ -5,16 +5,10 @@ Generic SSIS solution to get the net data changes on any SQL Server Change Track
 ## DDL
 
 ### Enable Change Tracking at Database level:
-Example:  
-`
-ALTER DATABASE [DatabaseName] SET CHANGE_TRACKING = ON (CHANGE_RETENTION = 3 DAYS, AUTO_CLEANUP = ON);
-`
+Example: `ALTER DATABASE [DatabaseName] SET CHANGE_TRACKING = ON (CHANGE_RETENTION = 3 DAYS, AUTO_CLEANUP = ON);`
 
 ### Enable Change Tracking at Table level:
-Example: 
-`
-ALTER TABLE <EPIC TABLE NAME> ENABLE CHANGE_TRACKING WITH (TRACK_COLUMNS_UPDATED = OFF);
-`
+Example: `ALTER TABLE <EPIC TABLE NAME> ENABLE CHANGE_TRACKING WITH (TRACK_COLUMNS_UPDATED = OFF);`
 
 ### Create Custom Objects: 
 
@@ -36,11 +30,14 @@ CREATE TABLE [CT].[Version]
     [UpdatedOn] [DATETIME] NULL,
     [UpdatedBy] [NVARCHAR](128) NULL
 ) GO
-
+`
+`
 ALTER TABLE [CT].[Version]
 ADD CONSTRAINT [Version_DK_CreatedOn] DEFAULT (GETDATE()) FOR [CreatedOn];
 GO
+`
 
+`
 ALTER TABLE [CT].[Version]
 ADD CONSTRAINT [Version_DK_CreatedBy] DEFAULT (SUSER_SNAME()) FOR [CreatedBy];
 GO
@@ -48,8 +45,7 @@ GO
 
 #### CT.Incremental
 
-`
-CREATE TABLE [CT].[Incremental]
+`CREATE TABLE [CT].[Incremental]
 (
 [IncrementalID] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
 [Schema] [nvarchar](128) NOT NULL,
@@ -59,11 +55,14 @@ CREATE TABLE [CT].[Incremental]
 [CreatedOn] [datetime] NOT NULL,
 [CreatedBy] [nvarchar](128) NOT NULL
 ) GO
+`
 
-ALTER TABLE [CT].[Incremental] ADD  CONSTRAINT [Incremental_DF_CreatedOn]  DEFAULT (getdate()) FOR [CreatedOn]
+`ALTER TABLE [CT].[Incremental] ADD  CONSTRAINT [Incremental_DF_CreatedOn]  DEFAULT (getdate()) FOR [CreatedOn]
 GO
+`
 
-ALTER TABLE [CT].[Incremental] ADD  CONSTRAINT [Incremental_DF_CreatedBy]  DEFAULT (suser_sname()) FOR [CreatedBy]
+`ALTER TABLE [CT].[Incremental] ADD  CONSTRAINT [Incremental_DF_CreatedBy]  DEFAULT (suser_sname()) FOR [CreatedBy]
+GO
 `
 
 To centralize all Incremental changes for the Change Tracked tables, a table in CT schema. This table will store the net incremental changes until truncated and reloaded as part of the nightly ETL job stream.
@@ -71,7 +70,7 @@ To centralize all Incremental changes for the Change Tracked tables, a table in 
 
 # SSIS Workflow
 
-Integration Service Package to orchestrate the refresh of the centralized Incremental table. High-level scope of the SSIS package and its data flow:
+Integration Service Package to orchestrate the refresh of  centralized Incremental table. High-level scope of the SSIS package and its data flow:
 
 ## Seed CT.Version (if not in the list) 
 With minimum valid version (maintained by the MSSQL database engine) for tables that have been flagged for Change Tracking. 
