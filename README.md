@@ -158,7 +158,7 @@ ORDER BY [Schema],
 
 ## FOR EACH Enumerated
 
-### Execute dynamic DML for Table in the current iteration 
+### Execute dynamically generated DML for Table in the current iteration 
 
 For example:
 
@@ -176,7 +176,7 @@ SELECT '[dbo]' AS [Schema],
 FROM CHANGETABLE(CHANGES [dbo].[Product], 594) AS ct
 WHERE [ct].[SYS_CHANGE_VERSION] <= 815;
 
-### FOR EACH enumerated, also execute the dynamic DML on CT.Version table to establish the starting version of the Table in the current iteration 
+### Also establish its watermark version for the next run 
 
 For example:
 
