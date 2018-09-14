@@ -5,21 +5,31 @@ Generic SSIS solution to get the net data changes on any SQL Server Change Track
 ## DDL
 
 ### Enable Change Tracking at Database level:
-Example: ```sql ALTER DATABASE [DatabaseName] SET CHANGE_TRACKING = ON (CHANGE_RETENTION = 3 DAYS, AUTO_CLEANUP = ON);```
+
+```sql 
+ALTER DATABASE [DatabaseName] SET CHANGE_TRACKING = ON (CHANGE_RETENTION = 3 DAYS, AUTO_CLEANUP = ON);
+```
 
 ### Enable Change Tracking at Table level:
-Example: `ALTER TABLE <EPIC TABLE NAME> ENABLE CHANGE_TRACKING WITH (TRACK_COLUMNS_UPDATED = OFF);`
+
+```sql 
+ALTER TABLE <EPIC TABLE NAME> ENABLE CHANGE_TRACKING WITH (TRACK_COLUMNS_UPDATED = OFF);`
+```
 
 ### Create Custom Objects: 
 
-#### `CREATE SCHEMA [CT];`
+#### CREATE SCHEMA [CT]
 A schema to maintain all CT objects
+
+```sql 
+CREATE SCHEMA [CT] AUTHORIZATION [dbo]
+```
 
 #### CT.Version
 
 To track CT version (incremental between last processed and cutover) by table, a new table to CT schema. Initial version starts with the minimum valid version as maintained by the MSSQL database engine.
 
-`
+```sql 
 CREATE TABLE [CT].[Version]
 (
     [TableVersionID] [BIGINT] IDENTITY(1, 1) NOT NULL PRIMARY KEY,
@@ -30,22 +40,20 @@ CREATE TABLE [CT].[Version]
     [UpdatedOn] [DATETIME] NULL,
     [UpdatedBy] [NVARCHAR](128) NULL
 ) GO
-`
-`
+
 ALTER TABLE [CT].[Version]
 ADD CONSTRAINT [Version_DK_CreatedOn] DEFAULT (GETDATE()) FOR [CreatedOn];
 GO
-`
 
-`
 ALTER TABLE [CT].[Version]
 ADD CONSTRAINT [Version_DK_CreatedBy] DEFAULT (SUSER_SNAME()) FOR [CreatedBy];
 GO
-`
+```
 
 #### CT.Incremental
 
-`CREATE TABLE [CT].[Incremental]
+```sql 
+CREATE TABLE [CT].[Incremental]
 (
 [IncrementalID] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
 [Schema] [nvarchar](128) NOT NULL,
@@ -55,15 +63,13 @@ GO
 [CreatedOn] [datetime] NOT NULL,
 [CreatedBy] [nvarchar](128) NOT NULL
 ) GO
-`
 
-`ALTER TABLE [CT].[Incremental] ADD  CONSTRAINT [Incremental_DF_CreatedOn]  DEFAULT (getdate()) FOR [CreatedOn]
+ALTER TABLE [CT].[Incremental] ADD  CONSTRAINT [Incremental_DF_CreatedOn]  DEFAULT (getdate()) FOR [CreatedOn]
 GO
-`
 
-`ALTER TABLE [CT].[Incremental] ADD  CONSTRAINT [Incremental_DF_CreatedBy]  DEFAULT (suser_sname()) FOR [CreatedBy]
+ALTER TABLE [CT].[Incremental] ADD  CONSTRAINT [Incremental_DF_CreatedBy]  DEFAULT (suser_sname()) FOR [CreatedBy]
 GO
-`
+```
 
 To centralize all Incremental changes for the Change Tracked tables, a table in CT schema. This table will store the net incremental changes until truncated and reloaded as part of the nightly ETL job stream.
 
@@ -75,7 +81,7 @@ Integration Service Package to orchestrate the refresh of  centralized Increment
 ## Seed CT.Version (if not in the list) 
 With minimum valid version (maintained by the MSSQL database engine) for tables that have been flagged for Change Tracking. 
 
-`
+```sql 
 WITH CTE_ChangeTrackedTables AS (SELECT CONCAT(QUOTENAME(s.name), '.', QUOTENAME(t.name)) AS [SchemaTable],
                                         tr.[min_valid_version] AS [MinValidVersion]
                                  FROM sys.schemas s
@@ -98,22 +104,22 @@ WHEN NOT MATCHED BY TARGET THEN
     )
     VALUES
     ([Schematable], [MinValidVersion]);
-`
+```
 
 ## Establish Cutover Change Tracking Version
-`
+```sql 
 SELECT ? = CHANGE_TRACKING_CURRENT_VERSION()
-`
+```
 ## Initialize Incremental
-`
+```sql 
 TRUNCATE TABLE [CT].[Incremental];
-`
+```
 
 ## Enumerate Change Tracked Tables (to refresh)
 
 For each table, dynamically generate t-SQL to refresh the centralized Incremental table between last and established cutover Tracking version. Single column primary key and composite columns primary keys are supported and all references to the metadata are on-the-fly resolve:
 
-`
+```sql 
 WITH CTE_list AS (SELECT QUOTENAME(s.name) AS [Schema],
                          QUOTENAME(t.name) AS [Table],
                          QUOTENAME(tc.[name]) AS [Column],
@@ -168,14 +174,14 @@ SELECT [Schema],
 FROM CTE_sub
 ORDER BY [Schema],
          [Table];
-`
+```
 
 ## FOR EACH Enumerated
 
 ### Execute dynamically generated DML for Table in the current iteration 
 
 For example:
-`
+```sql
 INSERT INTO [EPIC_US_CT].[CT].[Incremental]
 (
     [Schema],
@@ -189,15 +195,16 @@ SELECT '[dbo]' AS [Schema],
        CHECKSUM([ProductID]) AS [KeyValue]
 FROM CHANGETABLE(CHANGES [dbo].[Product], 594) AS ct
 WHERE [ct].[SYS_CHANGE_VERSION] <= 815;
-`
+```
 
 ### Also establish its watermark version for the next run 
 
 For example:
-`
+```sql 
 UPDATE [CT].[Version]
 SET [VersionID] = CAST(815 AS BIGINT),
     [UpdatedOn] = GETDATE(),
     [UpdatedBy] = SUSER_SNAME()
 WHERE [TableName] = '[dbo].[Product]';
-`
+```
+
