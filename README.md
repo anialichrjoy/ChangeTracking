@@ -5,7 +5,7 @@ Generic SSIS solution to get the net data changes on any SQL Server Change Track
 ## DDL
 
 ### Enable Change Tracking at Database level:
-Example: `ALTER DATABASE [DatabaseName] SET CHANGE_TRACKING = ON (CHANGE_RETENTION = 3 DAYS, AUTO_CLEANUP = ON);`
+Example: ```sql ALTER DATABASE [DatabaseName] SET CHANGE_TRACKING = ON (CHANGE_RETENTION = 3 DAYS, AUTO_CLEANUP = ON);```
 
 ### Enable Change Tracking at Table level:
 Example: `ALTER TABLE <EPIC TABLE NAME> ENABLE CHANGE_TRACKING WITH (TRACK_COLUMNS_UPDATED = OFF);`
