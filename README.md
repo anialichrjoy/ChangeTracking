@@ -178,7 +178,7 @@ ORDER BY [Schema],
 
 ## FOR EACH Enumerated
 
-### Execute dynamically generated DML for Table in the current iteration 
+### Execute dynamically generated DMLs for Table in the current iteration 
 
 For example:
 ```sql
