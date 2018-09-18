@@ -1,7 +1,5 @@
 # Abstract 
-Generic solution to detect the incremental data updates on SQL Server Change tracked table(s) using t-SQL and SSIS. 
-
-The solution is ideal for ETL use-cases that require an automated process to capture the NET changes on tracked table(s) to a centralized table for easy selection of the changed data only; rather than processing the large tables in entirety to support the typical OLTP ETL workloads.
+Solution to detect the incremental data updates on SQL Server Change tracked table(s) using t-SQL and SSIS. This pattern can be used to stage the incremental data for subsequent ETL by joining to a centralized reference table for easy selection and custom filtering.
 
 ## Technologies 
 Microsoft SQL Server native **Change Tracking, t-SQL** and **SSIS**
