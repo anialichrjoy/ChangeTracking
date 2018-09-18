@@ -117,7 +117,7 @@ SELECT ? = CHANGE_TRACKING_CURRENT_VERSION()
 TRUNCATE TABLE [CT].[Incremental];
 ```
 
-## Enumerate Change Tracked Tables (to refresh)
+## Enumerate Change Tracked Table(s) (to get the delta)
 
 For each table, dynamically generate t-SQL to refresh the centralized Incremental table between last and established cutover Tracking version. Single column primary key and composite columns primary keys are supported and all references to the metadata are on-the-fly resolve:
 
