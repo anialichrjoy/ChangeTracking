@@ -89,7 +89,7 @@ WITH CTE_ChangeTrackedTables AS (SELECT CONCAT(QUOTENAME(s.name), '.', QUOTENAME
                                  FROM sys.schemas s
                                      INNER JOIN sys.tables t ON s.schema_id = t.schema_id
                                      INNER JOIN sys.change_tracking_tables tr ON t.object_id = tr.object_id)
-MERGE [EPIC_US_CT].[CT].[Version] AS t
+MERGE [CT].[Version] AS t
 USING
 (
     SELECT [SchemaTable],
@@ -184,7 +184,7 @@ ORDER BY [Schema],
 
 For example:
 ```sql
-INSERT INTO [EPIC_US_CT].[CT].[Incremental]
+INSERT INTO [CT].[Incremental]
 (
     [Schema],
     [Table],
